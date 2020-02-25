@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "userName": "You-ser",
+      "emailAddress": "a@gmail.com",
+      "birthDate": "10-10-1994"
+    },
+    {
+      "id": 2,
+      "userName": "U-ser",
+      "emailAddress": "b@gmail.com",
+      "birthDate": "09-09-1980"
+    },
+    {
+      "id": 3,
+      "userName": "You",
+      "emailAddress": "c@gmail.com",
+      "birthDate": "04-04-2000"
+    }
+  ]
+}
