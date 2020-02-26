@@ -15,4 +15,8 @@ export class UserListComponent implements OnInit {
   ngOnInit() {
   }
 
+  showUsers() {
+    console.log('users after load', this.users);
+  }
+
 }

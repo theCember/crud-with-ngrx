@@ -16,11 +16,11 @@ export class CrudShellComponent implements OnInit {
   appTitle = 'CRUD with NgRx';
   users$: Observable<User[]>;
 
-  constructor(private store: Store<fromUser.AppState>) { }
+  constructor(private store: Store<fromUser.State>) { }
 
   ngOnInit() {
     this.store.dispatch(new userActions.Load());
-    //this.users$ = this.store.pipe(select(fromUser.getUsers));
+    this.users$ = this.store.pipe(select(fromUser.getUsers));
   }
 
 }

@@ -1,8 +1,9 @@
 import { User } from '../shared/models/user.model';
 import { UserActions, UserActionTypes } from './user.actions';
 import { createSelector, createFeatureSelector } from '@ngrx/store';
+import * as fromRoot from '../index';
 
-export interface AppState {
+export interface State extends fromRoot.State {
     users: UserState;
 }
 
@@ -12,24 +13,18 @@ export interface UserState {
 }
 
 const initialState: UserState = {
-    users: [{
-        id: 1,
-        userName: "You-ser",
-        emailAddress: "a@gmail.com",
-        birthDate: new Date()
-      }],
-    error: ''
+    users: [],
+    error: 'lalala'
 };
 
-//const getUserFeatureState = createFeatureSelector<UserState>('users');
-export const selectFeature = (state: AppState) => state.users;
+const getUserFeatureState = createFeatureSelector<UserState>('users');
 
 export const getUsers = createSelector(
-    selectFeature,
+    getUserFeatureState,
     state => state.users
 );
 
-export function reducer(state = initialState, action: UserActions): UserState {
+export function reducer(state: UserState = initialState, action: UserActions): UserState {
     switch ( action.type ) {
         case UserActionTypes.LoadSuccess:
             return {
