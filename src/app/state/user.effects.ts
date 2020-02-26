@@ -4,13 +4,14 @@ import { UserService } from '../shared/services/user-service.service';
 import * as userActions from './user.actions';
 import { mergeMap, map, catchError, concatMap } from 'rxjs/operators';
 import { User } from '../shared/models/user.model';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
+import { Action } from '@ngrx/store';
 
 @Injectable()
 export class UserEffects {
 
     constructor(private actions$: Actions,
-                private userService: UserService) {}
+                private userService: UserService) { }
 
     @Effect()
     loadUsers$ = this.actions$.pipe(
@@ -22,5 +23,17 @@ export class UserEffects {
             }),
             catchError(err => of(new userActions.LoadFail(err)))
         ))
+    );
+
+    @Effect()
+    createUser$: Observable<Action> = this.actions$.pipe(
+        ofType(userActions.UserActionTypes.CreateUser),
+        map((action: userActions.CreateUser) => action.payload),
+        mergeMap((user: User) =>
+            this.userService.addNewUser(user).pipe(
+                map(createdUser => (new userActions.CreateUserSuccess(createdUser))),
+                catchError(err => of(new userActions.CreateUserFail(err)))
+            )
+        )
     );
 }
