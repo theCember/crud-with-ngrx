@@ -10,9 +10,9 @@ import { UserListComponent } from './user-general/user-list/user-list.component'
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { UserService } from './shared/services/user-service.service';
 import { environment } from 'src/environments/environment';
-import { reducer } from './state/user.reducer';
 import { UserEffects } from './state/user.effects';
 import { HttpClientModule } from '@angular/common/http';
+import { UserModule } from './user.module';
 
 @NgModule({
   imports: [
@@ -20,7 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     HttpClientModule,
     StoreModule.forRoot({}),
-    EffectsModule.forRoot([UserEffects]),
+    EffectsModule.forRoot([]),
+    UserModule,
     StoreDevtoolsModule.instrument({
       name: 'NgRx CRUD App',
       maxAge: 25,

@@ -13,7 +13,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  public getAllUsers(): Observable<any>  {
-    return this.http.get(this.DATABASE_URL + this.ALL_USERS_URL);
+  public getAllUsers(): Observable<User[]>  {
+    return this.http.get<User[]>(this.DATABASE_URL + this.ALL_USERS_URL);
   }
 }

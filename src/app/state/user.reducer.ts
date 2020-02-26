@@ -2,29 +2,40 @@ import { User } from '../shared/models/user.model';
 import { UserActions, UserActionTypes } from './user.actions';
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 
+export interface AppState {
+    users: UserState;
+}
+
 export interface UserState {
     users: User[];
     error: string;
 }
 
 const initialState: UserState = {
-    users: [],
+    users: [{
+        id: 1,
+        userName: "You-ser",
+        emailAddress: "a@gmail.com",
+        birthDate: new Date()
+      }],
     error: ''
 };
 
-const getUserFeatureState = createFeatureSelector<UserState>('users');
+//const getUserFeatureState = createFeatureSelector<UserState>('users');
+export const selectFeature = (state: AppState) => state.users;
 
 export const getUsers = createSelector(
-    getUserFeatureState,
+    selectFeature,
     state => state.users
 );
 
-export function reducer(state: UserState = initialState, action: UserActions): UserState {
+export function reducer(state = initialState, action: UserActions): UserState {
     switch ( action.type ) {
         case UserActionTypes.LoadSuccess:
             return {
                 ...state,
-                users: action.payload
+                users: action.payload,
+                error: ''
             };
         case UserActionTypes.LoadFail:
             return {
@@ -32,5 +43,7 @@ export function reducer(state: UserState = initialState, action: UserActions): U
                 users: [],
                 error: action.payload
             };
+        default:
+            return state;
     }
 }
