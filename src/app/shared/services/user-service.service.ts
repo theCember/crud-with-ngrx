@@ -20,4 +20,8 @@ export class UserService {
   public addNewUser(user: User): Observable<User> {
     return this.http.post<User>(this.DATABASE_URL + this.ALL_USERS_URL, user);
   }
+
+  public deleteUser(userId: number): Observable<User> {
+    return this.http.delete<User>(this.DATABASE_URL + this.ALL_USERS_URL + '/' + userId);
+  }
 }

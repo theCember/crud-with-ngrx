@@ -25,6 +25,7 @@
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
     </div>
+    <app-error-bar [errorMessage]="error$ | async"></app-error-bar>
     <div class="row">
       <button type="submit" class="btn btn-success" [disabled]="!userForm.valid">Create</button>
     </div>

@@ -7,7 +7,10 @@ export enum UserActionTypes {
     LoadFail = '[User] Load Fail',
     CreateUser = '[User] Create',
     CreateUserSuccess = '[User] Create Success',
-    CreateUserFail = '[User] Create Fail'
+    CreateUserFail = '[User] Create Fail',
+    DeleteUser = '[User] Delete',
+    DeleteUserSuccess = '[User] Delete Success',
+    DeleteUserFail = '[User] Delete Fail'
 }
 
 export class Load implements Action {
@@ -43,9 +46,29 @@ export class CreateUserFail implements Action {
     constructor(public payload: string) {}
 }
 
+export class DeleteUser implements Action {
+    readonly type = UserActionTypes.DeleteUser;
+    constructor(public payload: number) {}
+}
+
+export class DeleteUserSuccess implements Action {
+    readonly type = UserActionTypes.DeleteUserSuccess;
+
+    constructor(public payload: number) {}
+}
+
+export class DeleteUserFail implements Action {
+    readonly type = UserActionTypes.DeleteUserFail;
+
+    constructor(public payload: string) {}
+}
+
 export type UserActions = Load
     | LoadSuccess
     | LoadFail
     | CreateUser
     | CreateUserSuccess
-    | CreateUserFail;
+    | CreateUserFail
+    | DeleteUser
+    | DeleteUserSuccess
+    | DeleteUserFail;

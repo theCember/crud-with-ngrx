@@ -14,12 +14,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserModule } from './user.module';
 import { CreateShellComponent } from './user-add/create-shell.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule } from '@angular/material/input';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MaterialModule } from './material.module';
+import { ErrorBarComponent } from './shared/components/error-bar/error-bar.component';
 
 @NgModule({
   imports: [
@@ -43,7 +40,8 @@ import { MaterialModule } from './material.module';
     AppComponent,
     CrudShellComponent,
     UserListComponent,
-    CreateShellComponent
+    CreateShellComponent,
+    ErrorBarComponent
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

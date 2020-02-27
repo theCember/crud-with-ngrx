@@ -11,6 +11,9 @@ import { Router } from '@angular/router';
 @Injectable()
 export class UserEffects {
 
+    readonly CREATE_USER_ERROR_MESSAGE = 'Something went wrong during creating user, please try again or try later.';
+    readonly LOAD_USER_ERROR_MESSAGE = 'Something went wrong during loading data, please try again or try later.';
+
     constructor(private actions$: Actions,
                 private userService: UserService,
                 private router: Router) { }
@@ -23,7 +26,7 @@ export class UserEffects {
                 console.log(users);
                 return new userActions.LoadSuccess(users);
             }),
-            catchError(err => of(new userActions.LoadFail(err)))
+            catchError(err => of(new userActions.LoadFail(this.LOAD_USER_ERROR_MESSAGE)))
         ))
     );
 
@@ -37,7 +40,7 @@ export class UserEffects {
                     this.router.navigate(['/']);
                     return new userActions.CreateUserSuccess(createdUser);
                 }),
-                catchError(err => of(new userActions.CreateUserFail(err)))
+                catchError(err => of((new userActions.CreateUserFail(this.CREATE_USER_ERROR_MESSAGE)))
             )
-        ));
+        )));
 }

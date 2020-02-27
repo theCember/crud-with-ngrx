@@ -11,6 +11,7 @@ export interface UserState {
     users: User[];
     newUser: User;
     error: string;
+    deletedUserId: number;
 }
 
 const initialState: UserState = {
@@ -21,7 +22,8 @@ const initialState: UserState = {
         emailAddress: null,
         birthDate: null
     },
-    error: ''
+    error: '',
+    deletedUserId: null
 };
 
 const getUserFeatureState = createFeatureSelector<UserState>('users');
@@ -29,6 +31,11 @@ const getUserFeatureState = createFeatureSelector<UserState>('users');
 export const getUsers = createSelector(
     getUserFeatureState,
     state => state.users
+);
+
+export const getError = createSelector(
+    getUserFeatureState,
+    state => state.error
 );
 
 export function reducer(state: UserState = initialState, action: UserActions): UserState {
@@ -60,6 +67,18 @@ export function reducer(state: UserState = initialState, action: UserActions): U
                     emailAddress: null,
                     birthDate: null
                 },
+                error: action.payload
+            };
+        case UserActionTypes.DeleteUserSuccess:
+            return {
+                ...state,
+                deletedUserId: action.payload,
+                error: ''
+            };
+        case UserActionTypes.DeleteUserFail:
+            return {
+                ...state,
+                deletedUserId: null,
                 error: action.payload
             };
         default:
