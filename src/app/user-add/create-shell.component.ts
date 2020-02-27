@@ -28,7 +28,7 @@ export class CreateShellComponent implements OnInit {
     this.store.dispatch(new userActions.CreateUser({
       id: null,
       userName: this.userForm.get('userName').value,
-      emailAddress: this.userForm.get('emailAddress').value,
+      emailAddress: this.userForm.get('email').value,
       birthDate: this.userForm.get('birthDate').value
     }));
   }

@@ -6,12 +6,14 @@ import { mergeMap, map, catchError, concatMap } from 'rxjs/operators';
 import { User } from '../shared/models/user.model';
 import { of, Observable } from 'rxjs';
 import { Action } from '@ngrx/store';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class UserEffects {
 
     constructor(private actions$: Actions,
-                private userService: UserService) { }
+                private userService: UserService,
+                private router: Router) { }
 
     @Effect()
     loadUsers$ = this.actions$.pipe(
@@ -31,9 +33,11 @@ export class UserEffects {
         map((action: userActions.CreateUser) => action.payload),
         mergeMap((user: User) =>
             this.userService.addNewUser(user).pipe(
-                map(createdUser => (new userActions.CreateUserSuccess(createdUser))),
+                map(createdUser => {
+                    this.router.navigate(['/']);
+                    return new userActions.CreateUserSuccess(createdUser);
+                }),
                 catchError(err => of(new userActions.CreateUserFail(err)))
             )
-        )
-    );
+        ));
 }
