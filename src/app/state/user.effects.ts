@@ -13,22 +13,44 @@ export class UserEffects {
 
     readonly CREATE_USER_ERROR_MESSAGE = 'Something went wrong during creating user, please try again or try later.';
     readonly LOAD_USER_ERROR_MESSAGE = 'Something went wrong during loading data, please try again or try later.';
+    readonly DELETE_USER_ERROR_MESSAGE = 'Something went wrong during deleting user, please try again or try later.';
 
     constructor(private actions$: Actions,
                 private userService: UserService,
                 private router: Router) { }
 
     @Effect()
-    loadUsers$ = this.actions$.pipe(
-        ofType(userActions.UserActionTypes.Load),
-        mergeMap((action: userActions.Load) => this.userService.getAllUsers().pipe(
+    loadAllUsers$ = this.actions$.pipe(
+        ofType(userActions.UserActionTypes.LoadAllUsers),
+        mergeMap((action: userActions.LoadAllUsers) => this.userService.getAllUsers().pipe(
             map((users: User[]) => {
                 console.log(users);
-                return new userActions.LoadSuccess(users);
+                return new userActions.LoadAllUsersSuccess(users);
             }),
-            catchError(err => of(new userActions.LoadFail(this.LOAD_USER_ERROR_MESSAGE)))
+            catchError(err => of(new userActions.LoadAllUsersFail(this.LOAD_USER_ERROR_MESSAGE)))
         ))
     );
+
+    @Effect()
+    loadSingleUser$ = this.actions$.pipe(
+        ofType(userActions.UserActionTypes.LoadSingleUser),
+        map((action: userActions.LoadSingleUser) => action.payload),
+        mergeMap((loadedUserId: any) => this.userService.getUser(loadedUserId).pipe(
+            map(() => new userActions.LoadSingleUserSuccess(loadedUserId)),
+            catchError(err => of(new userActions.LoadSingleUserFail(this.LOAD_USER_ERROR_MESSAGE)))
+        ))
+    );
+
+    @Effect()
+    deleteUser$: Observable<Action> = this.actions$.pipe(
+        ofType(userActions.UserActionTypes.DeleteUser),
+        map((action: userActions.DeleteUser) => action.payload),
+        mergeMap((userId: any) =>
+            this.userService.deleteUser(userId).pipe(
+                map(() => new userActions.DeleteUserSuccess(userId)),
+                catchError(err => of((new userActions.DeleteUserFail(this.CREATE_USER_ERROR_MESSAGE)))
+            )
+        )));
 
     @Effect()
     createUser$: Observable<Action> = this.actions$.pipe(

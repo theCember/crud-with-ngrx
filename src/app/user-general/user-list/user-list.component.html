@@ -4,10 +4,10 @@
     <div class="col-sm-3 col-md-3 col-lg-3">{{user.emailAddress}}</div>
     <div class="col-sm-2 col-md-2 col-lg-2">{{user.birthDate | date: 'dd/MM/yyyy'}}</div>
     <div class="col-sm-2 col-md-2 col-lg-2">
-      <button type="button" class="btn btn-warning">EDIT</button>
+      <button type="button" class="btn btn-warning" [routerLink]="['/edit', user.id]">EDIT</button>
     </div>
     <div class="col-sm-2 col-md-2 col-lg-2">
-      <button type="button" class="btn btn-danger">DELETE</button> <!-- (click)="emitUserDeletion(user.id)" -->
+      <button type="button" class="btn btn-danger" (click)="emitUserDeletion(user.id)">DELETE</button>
     </div>
   </div>
 </div>

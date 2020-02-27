@@ -7,28 +7,10 @@
       "birthDate": "10-10-1994"
     },
     {
-      "id": 2,
-      "userName": "U-ser",
-      "emailAddress": "b@gmail.com",
-      "birthDate": "09-09-1980"
-    },
-    {
       "id": 3,
       "userName": "You",
       "emailAddress": "c@gmail.com",
       "birthDate": "04-04-2000"
-    },
-    {
-      "id": 4,
-      "userName": "nam",
-      "emailAddress": "em@gmail.com",
-      "birthDate": "2020-02-16T23:00:00.000Z"
-    },
-    {
-      "id": 5,
-      "userName": "dsadas",
-      "emailAddress": "fil@gmail.com",
-      "birthDate": "2020-02-09T23:00:00.000Z"
     }
   ]
 }

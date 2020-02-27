@@ -17,6 +17,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 import { ErrorBarComponent } from './shared/components/error-bar/error-bar.component';
+import { UserEditComponent } from './user-edit/user-edition/user-edit.component';
+import { UserEditShellComponent } from './user-edit/user-edit-shell.component';
 
 @NgModule({
   imports: [
@@ -41,7 +43,9 @@ import { ErrorBarComponent } from './shared/components/error-bar/error-bar.compo
     CrudShellComponent,
     UserListComponent,
     CreateShellComponent,
-    ErrorBarComponent
+    ErrorBarComponent,
+    UserEditShellComponent,
+    UserEditComponent
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

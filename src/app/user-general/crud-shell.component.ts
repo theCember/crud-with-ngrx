@@ -19,8 +19,13 @@ export class CrudShellComponent implements OnInit {
   constructor(private store: Store<fromUser.State>) { }
 
   ngOnInit() {
-    this.store.dispatch(new userActions.Load());
+    this.store.dispatch(new userActions.LoadAllUsers());
     this.users$ = this.store.pipe(select(fromUser.getUsers));
+  }
+
+  handleUserDeletion(userId: any): void {
+    this.store.dispatch(new userActions.DeleteUser(userId));
+    this.store.dispatch(new userActions.LoadAllUsers());
   }
 
 }

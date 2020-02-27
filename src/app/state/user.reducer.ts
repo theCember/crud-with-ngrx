@@ -9,21 +9,30 @@ export interface State extends fromRoot.State {
 
 export interface UserState {
     users: User[];
+    loadedUserId: number;
     newUser: User;
-    error: string;
+    userToUpdate: User;
     deletedUserId: number;
+    error: string;
 }
 
 const initialState: UserState = {
     users: [],
+    loadedUserId: null,
     newUser: {
         id: null,
         userName: null,
         emailAddress: null,
         birthDate: null
     },
-    error: '',
-    deletedUserId: null
+    userToUpdate: {
+        id: null,
+        userName: null,
+        emailAddress: null,
+        birthDate: null
+    },
+    deletedUserId: null,
+    error: ''
 };
 
 const getUserFeatureState = createFeatureSelector<UserState>('users');
@@ -40,16 +49,28 @@ export const getError = createSelector(
 
 export function reducer(state: UserState = initialState, action: UserActions): UserState {
     switch (action.type) {
-        case UserActionTypes.LoadSuccess:
+        case UserActionTypes.LoadAllUsersSuccess:
             return {
                 ...state,
                 users: action.payload,
                 error: ''
             };
-        case UserActionTypes.LoadFail:
+        case UserActionTypes.LoadAllUsersFail:
             return {
                 ...state,
                 users: [],
+                error: action.payload
+            };
+        case UserActionTypes.LoadSingleUserSuccess:
+            return {
+                ...state,
+                loadedUserId: action.payload,
+                error: ''
+            };
+        case UserActionTypes.LoadSingleUserFail:
+            return {
+                ...state,
+                loadedUserId: null,
                 error: action.payload
             };
         case UserActionTypes.CreateUserSuccess:
@@ -79,6 +100,23 @@ export function reducer(state: UserState = initialState, action: UserActions): U
             return {
                 ...state,
                 deletedUserId: null,
+                error: action.payload
+            };
+        case UserActionTypes.UpdateUserSuccess:
+            return {
+                ...state,
+                userToUpdate: action.payload,
+                error: ''
+            };
+        case UserActionTypes.UpdateUserFail:
+            return {
+                ...state,
+                userToUpdate: {
+                    id: null,
+                    userName: null,
+                    emailAddress: null,
+                    birthDate: null
+                },
                 error: action.payload
             };
         default:
