@@ -23,25 +23,11 @@ export class UserEffects {
     @Effect()
     loadAllUsers$ = this.actions$.pipe(
         ofType(userActions.UserActionTypes.LoadAllUsers),
-        mergeMap((action: userActions.LoadAllUsers) => this.userService.getAllUsers().pipe(
-            map((users: User[]) => {
-                console.log(users);
-                return new userActions.LoadAllUsersSuccess(users);
-            }),
-            catchError(err => of(new userActions.LoadAllUsersFail(this.LOAD_USER_ERROR_MESSAGE)))
+        mergeMap(() => this.userService.getAllUsers().pipe(
+            map((users: User[]) => new userActions.LoadAllUsersSuccess(users)),
+            catchError(() => of(new userActions.LoadAllUsersFail(this.LOAD_USER_ERROR_MESSAGE)))
         ))
     );
-
-    @Effect()
-    loadSingleUser$: Observable<Action> = this.actions$.pipe(
-        ofType(userActions.UserActionTypes.LoadSingleUser),
-        map((action: userActions.LoadSingleUser) => action.payload),
-        mergeMap((loadedUserId: number) =>
-            this.userService.getUser(loadedUserId).pipe(
-                map(loadedUser => new userActions.LoadSingleUserSuccess(loadedUser)),
-                catchError(err => of((new userActions.LoadSingleUserFail(this.LOAD_USER_ERROR_MESSAGE)))
-                )
-            )));
 
     @Effect()
     deleteUser$: Observable<Action> = this.actions$.pipe(
@@ -50,7 +36,7 @@ export class UserEffects {
         mergeMap((userId: any) =>
             this.userService.deleteUser(userId).pipe(
                 map(() => new userActions.DeleteUserSuccess(userId)),
-                catchError(err => of((new userActions.DeleteUserFail(this.CREATE_USER_ERROR_MESSAGE)))
+                catchError(() => of((new userActions.DeleteUserFail(this.CREATE_USER_ERROR_MESSAGE)))
                 )
             )));
 
@@ -64,7 +50,7 @@ export class UserEffects {
                     this.router.navigate(['/']);
                     return new userActions.CreateUserSuccess(createdUser);
                 }),
-                catchError(err => of((new userActions.CreateUserFail(this.CREATE_USER_ERROR_MESSAGE)))
+                catchError(() => of((new userActions.CreateUserFail(this.CREATE_USER_ERROR_MESSAGE)))
                 )
             )));
 
@@ -78,7 +64,7 @@ export class UserEffects {
                     this.router.navigate(['/']);
                     return new userActions.UpdateUserSuccess(updatedUser);
                 }),
-                catchError(err => of((new userActions.UpdateUserFail(this.UPDATE_USER_ERROR_MESSAGE)))
+                catchError(() => of((new userActions.UpdateUserFail(this.UPDATE_USER_ERROR_MESSAGE)))
                 )
             )));
 }

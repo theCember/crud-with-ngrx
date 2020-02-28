@@ -14,6 +14,7 @@ import { Store } from '@ngrx/store';
 })
 export class UserEditComponent implements OnInit {
 
+  readonly DELAY_FORM_FILLING = 1000;
   @Input() userToEdit: User;
   error$: Observable<string>;
 
@@ -29,16 +30,24 @@ export class UserEditComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       birthDate: new FormControl('', [Validators.required, validateDate()]),
     });
+    this.fillFormWithDelay();
+  }
+
+  private fillFormWithDelay(): void {
     setTimeout(() => {
       this.editForm.setValue({
         userName: this.userToEdit.userName,
         email: this.userToEdit.emailAddress,
         birthDate: this.getParsedBirthDay()
       });
-    }, 1000);
+    }, this.DELAY_FORM_FILLING);
   }
 
-  submitForm() {
+  getParsedBirthDay(): string {
+    return new Date(this.userToEdit.birthDate).toISOString();
+  }
+
+  submitForm(): void {
     this.store.dispatch(new userActions.UpdateUser({
       id: this.userToEdit.id,
       userName: this.editForm.get('userName').value,
@@ -46,9 +55,4 @@ export class UserEditComponent implements OnInit {
       birthDate: this.editForm.get('birthDate').value
     }));
   }
-
-  getParsedBirthDay(): any {
-    return new Date(this.userToEdit.birthDate).toISOString();
-  }
-
 }

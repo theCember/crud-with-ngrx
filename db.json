@@ -5,18 +5,6 @@
       "userName": "You-ser",
       "emailAddress": "a@gmail.com",
       "birthDate": "10-10-1994"
-    },
-    {
-      "id": 3,
-      "userName": "You",
-      "emailAddress": "c@gmail.com",
-      "birthDate": "04-04-2000"
-    },
-    {
-      "id": 4,
-      "userName": "njunejm",
-      "emailAddress": "dsa@gmail.com",
-      "birthDate": "2020-02-24T23:00:00.000Z"
     }
   ]
 }

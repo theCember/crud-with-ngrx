@@ -9,26 +9,26 @@
       <div class="row">
         <mat-form-field class="example-full-width">
           <mat-label>User name:</mat-label>
-          <input formControlName="userName"  matInput> <!-- value="{{userToEdit.userName}}" -->
+          <input formControlName="userName"  matInput>
         </mat-form-field>
       </div>
       <div class="row">
         <mat-form-field class="example-full-width">
           <mat-label>Email:</mat-label>
-          <input formControlName="email" matInput > <!-- value="{{userToEdit.emailAddress}}" -->
+          <input formControlName="email" matInput>
         </mat-form-field>
       </div>
       <div class="row">
         <mat-form-field>
           <mat-label>Date of birth :</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="birthDate" > <!-- [value]="getParsedBirthDay()" -->
+          <input matInput [matDatepicker]="picker" formControlName="birthDate">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
       </div>
       <app-error-bar [errorMessage]="error$ | async"></app-error-bar>
       <div class="row">
-        <button type="submit" class="btn btn-success" [disabled]="!editForm.valid">Create</button>
+        <button type="submit" class="btn btn-success" [disabled]="!editForm.valid">Update</button>
       </div>
     </form>
   </div>

@@ -18,12 +18,10 @@ export class UserEditShellComponent implements OnInit {
   userToEdit$: Observable<User>;
 
   constructor(private route: ActivatedRoute,
-              private userService: UserService,
-              private store: Store<fromUser.State>) { }
+              private userService: UserService) { }
 
   ngOnInit() {
-    this.store.dispatch(new userActions.LoadSingleUser(this.route.snapshot.params.id));
-    this.userToEdit$ = this.store.pipe(select(fromUser.getLoadedUser));
+    this.userToEdit$ = this.userService.getUser(this.route.snapshot.params.id);
   }
 
 }

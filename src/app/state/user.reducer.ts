@@ -9,8 +9,6 @@ export interface State extends fromRoot.State {
 
 export interface UserState {
     users: User[];
-    loadedUserId: number;
-    loadedUser: User;
     newUser: User;
     userToUpdate: User;
     deletedUserId: number;
@@ -19,13 +17,6 @@ export interface UserState {
 
 const initialState: UserState = {
     users: [],
-    loadedUserId: null,
-    loadedUser: {
-        id: null,
-        userName: null,
-        emailAddress: null,
-        birthDate: null
-    },
     newUser: {
         id: null,
         userName: null,
@@ -49,11 +40,6 @@ export const getAllUsers = createSelector(
     state => state.users
 );
 
-export const getLoadedUser = createSelector(
-    getUserFeatureState,
-    state => state.loadedUser
-);
-
 export const getError = createSelector(
     getUserFeatureState,
     state => state.error
@@ -71,29 +57,6 @@ export function reducer(state: UserState = initialState, action: UserActions): U
             return {
                 ...state,
                 users: [],
-                error: action.payload
-            };
-        case UserActionTypes.LoadSingleUser:
-            return {
-                ...state,
-                loadedUserId: action.payload
-            };
-        case UserActionTypes.LoadSingleUserSuccess:
-            return {
-                ...state,
-                loadedUserId: null,
-                loadedUser: action.payload,
-                error: ''
-            };
-        case UserActionTypes.LoadSingleUserFail:
-            return {
-                ...state,
-                loadedUser: {
-                    id: null,
-                    userName: null,
-                    emailAddress: null,
-                    birthDate: null
-                },
                 error: action.payload
             };
         case UserActionTypes.CreateUserSuccess:
