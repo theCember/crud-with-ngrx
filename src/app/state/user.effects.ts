@@ -14,6 +14,7 @@ export class UserEffects {
     readonly CREATE_USER_ERROR_MESSAGE = 'Something went wrong during creating user, please try again or try later.';
     readonly LOAD_USER_ERROR_MESSAGE = 'Something went wrong during loading data, please try again or try later.';
     readonly DELETE_USER_ERROR_MESSAGE = 'Something went wrong during deleting user, please try again or try later.';
+    readonly UPDATE_USER_ERROR_MESSAGE = 'Something went wrong during editing user, please try again or try later.';
 
     constructor(private actions$: Actions,
                 private userService: UserService,
@@ -32,14 +33,15 @@ export class UserEffects {
     );
 
     @Effect()
-    loadSingleUser$ = this.actions$.pipe(
+    loadSingleUser$: Observable<Action> = this.actions$.pipe(
         ofType(userActions.UserActionTypes.LoadSingleUser),
         map((action: userActions.LoadSingleUser) => action.payload),
-        mergeMap((loadedUserId: any) => this.userService.getUser(loadedUserId).pipe(
-            map(() => new userActions.LoadSingleUserSuccess(loadedUserId)),
-            catchError(err => of(new userActions.LoadSingleUserFail(this.LOAD_USER_ERROR_MESSAGE)))
-        ))
-    );
+        mergeMap((loadedUserId: number) =>
+            this.userService.getUser(loadedUserId).pipe(
+                map(loadedUser => new userActions.LoadSingleUserSuccess(loadedUser)),
+                catchError(err => of((new userActions.LoadSingleUserFail(this.LOAD_USER_ERROR_MESSAGE)))
+                )
+            )));
 
     @Effect()
     deleteUser$: Observable<Action> = this.actions$.pipe(
@@ -49,8 +51,8 @@ export class UserEffects {
             this.userService.deleteUser(userId).pipe(
                 map(() => new userActions.DeleteUserSuccess(userId)),
                 catchError(err => of((new userActions.DeleteUserFail(this.CREATE_USER_ERROR_MESSAGE)))
-            )
-        )));
+                )
+            )));
 
     @Effect()
     createUser$: Observable<Action> = this.actions$.pipe(
@@ -63,6 +65,20 @@ export class UserEffects {
                     return new userActions.CreateUserSuccess(createdUser);
                 }),
                 catchError(err => of((new userActions.CreateUserFail(this.CREATE_USER_ERROR_MESSAGE)))
-            )
-        )));
+                )
+            )));
+
+    @Effect()
+    updateUser$: Observable<Action> = this.actions$.pipe(
+        ofType(userActions.UserActionTypes.UpdateUser),
+        map((action: userActions.UpdateUser) => action.payload),
+        mergeMap((user: User) =>
+            this.userService.updateUser(user).pipe(
+                map(updatedUser => {
+                    this.router.navigate(['/']);
+                    return new userActions.UpdateUserSuccess(updatedUser);
+                }),
+                catchError(err => of((new userActions.UpdateUserFail(this.UPDATE_USER_ERROR_MESSAGE)))
+                )
+            )));
 }

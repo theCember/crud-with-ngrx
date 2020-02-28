@@ -1,8 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../shared/models/user.model';
-import * as fromUser from '../state/user.reducer';
 import { Store, select } from '@ngrx/store';
+import * as fromUser from '../state/user.reducer';
 import * as userActions from '../state/user.actions';
 
 @Component({
@@ -20,7 +20,7 @@ export class CrudShellComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new userActions.LoadAllUsers());
-    this.users$ = this.store.pipe(select(fromUser.getUsers));
+    this.users$ = this.store.pipe(select(fromUser.getAllUsers));
   }
 
   handleUserDeletion(userId: any): void {

@@ -10,6 +10,7 @@ export interface State extends fromRoot.State {
 export interface UserState {
     users: User[];
     loadedUserId: number;
+    loadedUser: User;
     newUser: User;
     userToUpdate: User;
     deletedUserId: number;
@@ -19,6 +20,12 @@ export interface UserState {
 const initialState: UserState = {
     users: [],
     loadedUserId: null,
+    loadedUser: {
+        id: null,
+        userName: null,
+        emailAddress: null,
+        birthDate: null
+    },
     newUser: {
         id: null,
         userName: null,
@@ -37,9 +44,14 @@ const initialState: UserState = {
 
 const getUserFeatureState = createFeatureSelector<UserState>('users');
 
-export const getUsers = createSelector(
+export const getAllUsers = createSelector(
     getUserFeatureState,
     state => state.users
+);
+
+export const getLoadedUser = createSelector(
+    getUserFeatureState,
+    state => state.loadedUser
 );
 
 export const getError = createSelector(
@@ -61,16 +73,27 @@ export function reducer(state: UserState = initialState, action: UserActions): U
                 users: [],
                 error: action.payload
             };
+        case UserActionTypes.LoadSingleUser:
+            return {
+                ...state,
+                loadedUserId: action.payload
+            };
         case UserActionTypes.LoadSingleUserSuccess:
             return {
                 ...state,
-                loadedUserId: action.payload,
+                loadedUserId: null,
+                loadedUser: action.payload,
                 error: ''
             };
         case UserActionTypes.LoadSingleUserFail:
             return {
                 ...state,
-                loadedUserId: null,
+                loadedUser: {
+                    id: null,
+                    userName: null,
+                    emailAddress: null,
+                    birthDate: null
+                },
                 error: action.payload
             };
         case UserActionTypes.CreateUserSuccess:

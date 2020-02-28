@@ -1,3 +1,35 @@
-<p>
-  user-edit works!
-</p>
+<div *ngIf="userToEdit">
+  <div class="row">
+    <div class="col-sm-4 col-md-4 col-lg-4"></div>
+    <div class="col-sm-4 col-md-4 col-lg-4 text-center app-title">{{ editorTitle }}</div>
+    <div class="col-sm-4 col-md-4 col-lg-4"></div> 
+  </div>
+  <div class="container text-center">
+    <form [formGroup]="editForm" (ngSubmit)="submitForm()">
+      <div class="row">
+        <mat-form-field class="example-full-width">
+          <mat-label>User name:</mat-label>
+          <input formControlName="userName"  matInput> <!-- value="{{userToEdit.userName}}" -->
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="example-full-width">
+          <mat-label>Email:</mat-label>
+          <input formControlName="email" matInput > <!-- value="{{userToEdit.emailAddress}}" -->
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field>
+          <mat-label>Date of birth :</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="birthDate" > <!-- [value]="getParsedBirthDay()" -->
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <app-error-bar [errorMessage]="error$ | async"></app-error-bar>
+      <div class="row">
+        <button type="submit" class="btn btn-success" [disabled]="!editForm.valid">Create</button>
+      </div>
+    </form>
+  </div>
+</div>

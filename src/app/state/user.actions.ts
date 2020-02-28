@@ -5,6 +5,9 @@ export enum UserActionTypes {
     LoadAllUsers = '[User] Load All Users',
     LoadAllUsersSuccess = '[User] Load All Users Success',
     LoadAllUsersFail = '[User] Load All Users Fail',
+    LoadSingleUser = '[User] Load Single User',
+    LoadSingleUserSuccess = '[User] Load Single User Success',
+    LoadSingleUserFail = '[User] Load Single User Fail',
     CreateUser = '[User] Create',
     CreateUserSuccess = '[User] Create Success',
     CreateUserFail = '[User] Create Fail',
@@ -28,6 +31,24 @@ export class LoadAllUsersSuccess implements Action {
 
 export class LoadAllUsersFail implements Action {
     readonly type = UserActionTypes.LoadAllUsersFail;
+
+    constructor(public payload: string) {}
+}
+
+export class LoadSingleUser implements Action {
+    readonly type = UserActionTypes.LoadSingleUser;
+
+    constructor(public payload: number) {}
+}
+
+export class LoadSingleUserSuccess implements Action {
+    readonly type = UserActionTypes.LoadSingleUserSuccess;
+
+    constructor(public payload: User) {}
+}
+
+export class LoadSingleUserFail implements Action {
+    readonly type = UserActionTypes.LoadSingleUserFail;
 
     constructor(public payload: string) {}
 }
@@ -87,6 +108,9 @@ export class DeleteUserFail implements Action {
 export type UserActions = LoadAllUsers
     | LoadAllUsersSuccess
     | LoadAllUsersFail
+    | LoadSingleUser
+    | LoadSingleUserSuccess
+    | LoadSingleUserFail
     | CreateUser
     | CreateUserSuccess
     | CreateUserFail
