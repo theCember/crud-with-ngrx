@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col-sm-4 col-md-4 col-lg-4"></div>
+  <div class="col-sm-4 col-md-4 col-lg-4 text-center app-title">{{ appTitle }}</div>
+  <div class="col-sm-4 col-md-4 col-lg-4"></div>
+</div>
+<app-user-list [users]="users$ | async" (deleteEventEmitter)="handleUserDeletion($event)"></app-user-list>
+<div class="row adder-container">
+  <div class="col-sm-2 col-md-2 col-lg-2"></div>
+  <div class="col-sm-8 col-md-8 col-lg-8 text-center">
+    <button type="button" routerLink="/add" class="btn-lg btn-success">Add user</button>
+  </div>
+  <div class="col-sm-2 col-md-2 col-lg-2"></div>
+</div>
