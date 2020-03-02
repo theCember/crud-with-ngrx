@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { CanDeactivate } from '@angular/router';
-import { UserEditComponent } from 'src/app/user-edit/user-edition/user-edit.component';
+import { UserEditorComponent } from 'src/app/user-editor/user-editor.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserEditGuard implements CanDeactivate<UserEditComponent> {
+export class UserEditorGuard implements CanDeactivate<UserEditorComponent> {
 
-  canDeactivate(component: UserEditComponent): boolean {
+  canDeactivate(component: UserEditorComponent): boolean {
     if (component.editForm.dirty || component.editForm.touched) {
       return window.confirm('Do You wish to cancel editing current user?');
     }

@@ -12,13 +12,14 @@ import { UserService } from './shared/services/user-service.service';
 import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { UserModule } from './user.module';
-import { CreateShellComponent } from './user-add/create-shell.component';
+import { UserCreatorComponent } from './user-add/user-creator.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 import { ErrorBarComponent } from './shared/components/error-bar/error-bar.component';
-import { UserEditComponent } from './user-edit/user-edition/user-edit.component';
-import { UserEditShellComponent } from './user-edit/user-edit-shell.component';
+import { UserEditorComponent } from './user-editor/user-editor.component';
+import { UserCreatorGuard } from './shared/guards/user-creator/user-creator.guard';
+import { UserEditorGuard } from './shared/guards/user-editor/user-editor.guard';
 
 @NgModule({
   imports: [
@@ -42,12 +43,11 @@ import { UserEditShellComponent } from './user-edit/user-edit-shell.component';
     AppComponent,
     CrudShellComponent,
     UserListComponent,
-    CreateShellComponent,
+    UserCreatorComponent,
     ErrorBarComponent,
-    UserEditShellComponent,
-    UserEditComponent
+    UserEditorComponent
   ],
-  providers: [UserService],
+  providers: [UserService, UserCreatorGuard, UserEditorGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
