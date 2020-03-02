@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { UserService } from '../shared/services/user-service.service';
-import * as userActions from './user.actions';
 import { mergeMap, map, catchError } from 'rxjs/operators';
 import { User } from '../shared/models/user.model';
 import { of, Observable } from 'rxjs';
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { Router } from '@angular/router';
+import * as fromUser from './user.reducer';
+import * as userActions from './user.actions';
 
 @Injectable()
 export class UserEffects {
@@ -18,10 +19,11 @@ export class UserEffects {
 
     constructor(private actions$: Actions,
                 private userService: UserService,
-                private router: Router) { }
+                private router: Router,
+                private store: Store<fromUser.State>) { }
 
     @Effect()
-    loadAllUsers$ = this.actions$.pipe(
+    loadAllUsers$: Observable<Action> = this.actions$.pipe(
         ofType(userActions.UserActionTypes.LoadAllUsers),
         mergeMap(() => this.userService.getAllUsers().pipe(
             map((users: User[]) => new userActions.LoadAllUsersSuccess(users)),
@@ -33,9 +35,12 @@ export class UserEffects {
     deleteUser$: Observable<Action> = this.actions$.pipe(
         ofType(userActions.UserActionTypes.DeleteUser),
         map((action: userActions.DeleteUser) => action.payload),
-        mergeMap((userId: any) =>
+        mergeMap((userId: number) =>
             this.userService.deleteUser(userId).pipe(
-                map(() => new userActions.DeleteUserSuccess(userId)),
+                map(() => {
+                    this.store.dispatch(new userActions.LoadAllUsers());
+                    return new userActions.DeleteUserSuccess(userId);
+                }),
                 catchError(() => of((new userActions.DeleteUserFail(this.CREATE_USER_ERROR_MESSAGE)))
                 )
             )));

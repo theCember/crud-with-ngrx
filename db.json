@@ -2,20 +2,8 @@
   "users": [
     {
       "id": 1,
-      "userName": "You-ser",
-      "emailAddress": "a@gmail.com",
-      "birthDate": "1994-10-09T23:00:00.000Z"
-    },
-    {
-      "id": 2,
       "userName": "newUser",
-      "emailAddress": "fil@gmail.com",
-      "birthDate": "2020-03-01T23:00:00.000Z"
-    },
-    {
-      "id": 3,
-      "userName": "new",
-      "emailAddress": "g@gmail.com",
+      "emailAddress": "filgr@gmail.com",
       "birthDate": "2020-02-29T23:00:00.000Z"
     }
   ]

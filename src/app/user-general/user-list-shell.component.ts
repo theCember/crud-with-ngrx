@@ -13,7 +13,6 @@ import * as userActions from '../state/user.actions';
 })
 export class UserListShellComponent implements OnInit {
 
-  readonly DELAY_AFTER_DELETION = 500;
   appTitle = 'CRUD with NgRx';
   users$: Observable<User[]>;
 
@@ -26,9 +25,6 @@ export class UserListShellComponent implements OnInit {
 
   handleUserDeletion(userId: any): void {
     this.store.dispatch(new userActions.DeleteUser(userId));
-    setTimeout(() => {
-      this.store.dispatch(new userActions.LoadAllUsers());
-    }, this.DELAY_AFTER_DELETION);
   }
 
 }
