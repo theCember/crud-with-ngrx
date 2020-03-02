@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanDeactivate } from '@angular/router';
-import { UserCreatorComponent } from 'src/app/user-add/user-creator.component';
+import { UserCreatorComponent } from 'src/app/user-creator/user-creator.component';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,7 @@ import { UserCreatorComponent } from 'src/app/user-add/user-creator.component';
 export class UserCreatorGuard implements CanDeactivate<UserCreatorComponent> {
 
   canDeactivate(component: UserCreatorComponent): boolean {
-    if (component.userForm.dirty && component.userForm.touched && !component.userForm.valid) {
+    if (component.userForm.dirty || component.userForm.touched) {
       return window.confirm('Do You wish to cancel creating new user?');
     }
     return true;

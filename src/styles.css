@@ -2,7 +2,7 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 .app-title {
-    font-size: 30px;
+    font-size: 40px;
     margin: 20px 0px 20px 0px;
 }
 html, body { height: 100%; }
@@ -10,4 +10,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 #navigation-bar {
     background-color: grey;
+}
+
+.canceler {
+    margin: 10px 0px 0px 0px;
 }

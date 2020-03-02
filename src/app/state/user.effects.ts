@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { UserService } from '../shared/services/user-service.service';
 import * as userActions from './user.actions';
-import { mergeMap, map, catchError, concatMap } from 'rxjs/operators';
+import { mergeMap, map, catchError } from 'rxjs/operators';
 import { User } from '../shared/models/user.model';
 import { of, Observable } from 'rxjs';
 import { Action } from '@ngrx/store';

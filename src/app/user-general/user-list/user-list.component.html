@@ -1,13 +1,13 @@
 <div class="container" *ngIf="users">
   <div class="row data-row" *ngFor="let user of users">
-    <div class="col-sm-3 col-md-3 col-lg-3">{{user.userName}}</div>
-    <div class="col-sm-3 col-md-3 col-lg-3">{{user.emailAddress}}</div>
-    <div class="col-sm-2 col-md-2 col-lg-2">{{user.birthDate | date: 'dd/MM/yyyy'}}</div>
-    <div class="col-sm-2 col-md-2 col-lg-2">
-      <button type="button" class="btn btn-warning" [routerLink]="['/edit', user.id]">EDIT</button>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 text-center data-column">{{user.userName}}</div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 text-center data-column">{{user.emailAddress}}</div>
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center data-column">{{user.birthDate | date: 'dd/MM/yyyy'}}</div>
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 button-column text-center" >
+      <button type="button" class="btn-sm btn-warning" [routerLink]="['/edit', user.id]">EDIT</button>
     </div>
-    <div class="col-sm-2 col-md-2 col-lg-2">
-      <button type="button" class="btn btn-danger" (click)="emitUserDeletion(user.id)">DELETE</button>
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 button-column text-center">
+      <button type="button" class="btn-sm btn-danger" (click)="emitUserDeletion(user.id)">DELETE</button>
     </div>
   </div>
 </div>
