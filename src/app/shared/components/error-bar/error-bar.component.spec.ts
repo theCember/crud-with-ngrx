@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ErrorBarComponent } from './error-bar.component';
+import { By } from '@angular/platform-browser';
 
 describe('ErrorBarComponent', () => {
   let component: ErrorBarComponent;
@@ -19,7 +20,14 @@ describe('ErrorBarComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should display right error message in <p>', () => {
+    // given
+    const errorMessage = 'error';
+    fixture.componentInstance.errorMessage = errorMessage;
+    // when
+    fixture.detectChanges();
+    const retrivedErrorMessage = fixture.debugElement.query(By.css('p')).nativeElement.textContent;
+    // then
+    expect(retrivedErrorMessage).toBe(errorMessage);
   });
 });
