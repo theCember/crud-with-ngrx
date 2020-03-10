@@ -4,11 +4,11 @@ import { UserListShellComponent } from './user-list-shell.component';
 import { Component, Input } from '@angular/core';
 import { User } from '../shared/models/user.model';
 import { provideMockStore } from '@ngrx/store/testing';
+import { initialState } from '../state/user.reducer';
 
 describe('UserListShellComponent', () => {
   let component: UserListShellComponent;
   let fixture: ComponentFixture<UserListShellComponent>;
-  const initialState = { info: '' };
   let mockUserService;
 
   @Component({

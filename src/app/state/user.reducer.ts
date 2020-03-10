@@ -15,7 +15,7 @@ export interface UserState {
     error: string;
 }
 
-const initialState: UserState = {
+export const initialState: UserState = {
     users: [],
     newUser: {
         id: null,

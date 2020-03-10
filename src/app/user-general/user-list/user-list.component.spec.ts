@@ -29,15 +29,11 @@ describe('UserListComponent', () => {
     }
   ];
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ UserListComponent ],
       imports: [RouterTestingModule]
-    })
-    .compileComponents();
-  }));
-
-  beforeEach(() => {
+    });
     fixture = TestBed.createComponent(UserListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

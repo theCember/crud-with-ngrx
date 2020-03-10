@@ -9,15 +9,14 @@ import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../shared/services/user-service.service';
 import { of, Observable } from 'rxjs';
+import { initialState } from '../state/user.reducer';
 
 describe('UserEditorComponent', () => {
   const MOCKED_ERROR_MESSAGE = 'Something went wrong during editing user, please try again or try later.';
   let component: UserEditorComponent;
   let fixture: ComponentFixture<UserEditorComponent>;
-  const initialState = { info: '' };
-  let mockActivatedRoute = {
-    params: { id: '1' }
-  };
+  let mockUser;
+  let mockActivatedRoute;
   let mockUserService;
 
   @Component({
@@ -35,7 +34,16 @@ describe('UserEditorComponent', () => {
     @Input() errorMessage: string;
   }
 
-  beforeEach(async(() => {
+  beforeEach(() => {
+    mockActivatedRoute = {
+      snapshot: { params: { id: '1' } }
+    };
+    mockUser = {
+      id: 1,
+      userName: 'newUser',
+      emailAddress: 'filgr@gmail.com',
+      birthDate: new Date('2020-02-29T23:00:00.000Z')
+    };
     mockUserService = jasmine.createSpyObj(['getAllUsers', 'getUser', 'updateUser', 'addNewUser', 'deleteUser']);
     TestBed.configureTestingModule({
       imports: [FormsModule,
@@ -48,23 +56,18 @@ describe('UserEditorComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: mockActivatedRoute
-
         },
         { provide: UserService, useValue: mockUserService }
       ]
-    })
-      .compileComponents();
-  }));
-
-  beforeEach(() => {
+    });
     fixture = TestBed.createComponent(UserEditorComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
+    mockUserService.getUser.and.returnValue(of(mockUser));
     fixture.componentInstance.error$ = of(MOCKED_ERROR_MESSAGE);
     fixture.detectChanges();
-    expect(component).toBeTruthy();
+    expect(fixture).toBeTruthy();
   });
 });
