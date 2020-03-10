@@ -11,11 +11,12 @@ import { UserService } from '../shared/services/user-service.service';
 import { of, Observable } from 'rxjs';
 
 describe('UserEditorComponent', () => {
+  const MOCKED_ERROR_MESSAGE = 'Something went wrong during editing user, please try again or try later.';
   let component: UserEditorComponent;
   let fixture: ComponentFixture<UserEditorComponent>;
   const initialState = { info: '' };
   let mockActivatedRoute = {
-    paramMap: { id: '1' }
+    params: { id: '1' }
   };
   let mockUserService;
 
@@ -62,6 +63,8 @@ describe('UserEditorComponent', () => {
   });
 
   it('should create', () => {
+    fixture.componentInstance.error$ = of(MOCKED_ERROR_MESSAGE);
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 });
